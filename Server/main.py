@@ -1,8 +1,12 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 import uvicorn
+import os
+from dotenv import load_dotenv
 
 from utils.db import connect_db, disconnect_db
+
+load_dotenv()
 
 # 2. Define the lifespan manager
 @asynccontextmanager

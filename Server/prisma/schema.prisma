@@ -26,16 +26,20 @@ model User {
   password  String?
   role      Role     @default(STUDENT)
   
-  
   face_embedding Float[] 
+
+  // Tokens & Sessions
+  refreshToken       String?
+  refreshTokenExpiry DateTime?
+  resetToken         String?   @unique
+  resetTokenExpiry   DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
- 
-  subjectsTaught Subject[] @relation("TeacherSubjects")
-  enrollments    Enrollment[] // For Students
-  attendanceRecords Attendance[]
+  subjectsTaught     Subject[]    @relation("TeacherSubjects")
+  enrollments        Enrollment[]
+  attendanceRecords  Attendance[]
 }
 
 model Subject {
