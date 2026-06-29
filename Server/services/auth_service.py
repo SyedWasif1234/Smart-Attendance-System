@@ -1,5 +1,14 @@
 from utils.db import db
 from utils.security import hash_password
+import bcrypt
+
+
+async def authenticate_user(email: str, password: str):
+    user = await db.user.find_unique(where={"email": email})
+    if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+        return user
+    return None
+
 
 def create_user(username , email , password , role , embedding_list):
     try:
