@@ -1,10 +1,10 @@
 import dlib
-import numnpy as np
+import numpy as np
 import face_recognition_models
-form sklearn.svm import SVC
+from sklearn.svm import SVC
 from functools import lru_cache # FastAPI's way of caching heavy models!
 
-# Call this whenever you retrain the model or update the underlying files
+# Called whenever retrain the model or update the underlying files
 def refresh_models():
     # Force the dlib models to be reloaded from disk
     load_dlib_models.cache_clear()
