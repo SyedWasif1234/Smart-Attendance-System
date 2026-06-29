@@ -1,0 +1,18 @@
+# Dependencies (Always add trailing slashes)
+node_modules/
+venv/
+.venv/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Keep environment variables out of version control
+.env
+.env.*
+!.env.example
+
+# Prisma Generated Client & Engines
+/generated/prisma/
+node_modules/.prisma/

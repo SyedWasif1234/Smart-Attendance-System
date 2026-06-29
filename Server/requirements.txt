@@ -1,0 +1,26 @@
+# --- Core Web Framework ---
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+
+# --- Database, Storage & Security ---
+prisma
+bcrypt
+
+# --- Data & Math Utilities ---
+numpy
+pandas
+
+# --- Image Processing & ML ---
+pillow   # (PIL) opens raw image files so your code can read the pixels / It opens the raw image file the React frontend sends and converts it into a format numpy and dlib can understand.
+scikit-learn
+dlib-bin # does the heavy lifting of finding faces and mapping their features (landmarks
+git+https://github.com/ageitgey/face_recognition_models   # ctual pre-trained mathematical files (models) that know what a human face looks like
+setuptools<70.0.0 
+
+# --- Misc Utilities ---
+segno # This is a Python library for generating QR codes
+
+librosa     # It is a library for audio and music analysis.
+# resemblyzer # This is a powerful library specifically built for speaker verification (figuring out who is speaking) and speaker diarization (figuring out when different people are speaking).
