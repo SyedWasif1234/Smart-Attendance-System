@@ -9,12 +9,12 @@ from piplines.FaceRecognition import get_face_embeddings
 from utils.security import create_AccessToken, create_RefreshToken, verify_token ,update_refresh_token , clear_refresh_token
 
 
-router = APIRouter(
+auth_router = APIRouter(
     prefix = "/auth",
     tags = ["Auth"]
 )
 
-@router.post("/register")
+@auth_router.post("/register")
 async def register(username: str = Form(...) , email: str = Form(...) , password: str = Form(...) , file: UploadFile = File(...)):
     contents = await file.read()
     image = Image.open(io.BytesIO(contents)).convert('RGB')
@@ -28,7 +28,7 @@ async def register(username: str = Form(...) , email: str = Form(...) , password
     return {"message": "User registered successfully", "user_id": user.id}
 
    
-@router.post("/login")
+@auth_router.post("/login")
 async def login( email: str = Form(...), password: str = Form(...)):
     try:
         user = await db.user.find_unique(where={"email": email})
@@ -54,7 +54,7 @@ async def login( email: str = Form(...), password: str = Form(...)):
         )
     
 
-@router.post("/logout")
+@auth_router.post("/logout")
 async def logout(user_id: str):
     await clear_refresh_token(user_id)
     return {"message": "Logged out successfully"}

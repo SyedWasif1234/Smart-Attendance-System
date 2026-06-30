@@ -6,11 +6,12 @@ import os
 from dotenv import load_dotenv
 
 from utils.db import connect_db, disconnect_db
-from utils.dependencies import require_teacher, require_student, get_current_user]
+from utils.dependencies import require_teacher, require_student, get_current_user
 
 from routers.auth_router import auth_router
 from routers.student_router import student_router
 from routers.subject_router import subject_router
+from routers.class_router import class_router
 
 
 load_dotenv()
@@ -39,9 +40,10 @@ app.add_middleware(
 )
 
 
-app.include_router(auth_router.router)
-app.include_router(student_router.router)
-app.include_router(subject_router.router)
+app.include_router(auth_router)
+app.include_router(student_router)
+app.include_router(subject_router)
+app.include_router(class_router)
 
 # --- ROOT ENDPOINT ---
 @app.get("/")
