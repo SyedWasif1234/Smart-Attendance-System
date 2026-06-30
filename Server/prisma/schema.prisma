@@ -45,7 +45,7 @@ model User {
 model Subject {
   id        String @id @default(uuid())
   name      String
-  code      String
+  code      String  // here i have to include @unique
   
   teacherId String
   teacher   User   @relation("TeacherSubjects", fields: [teacherId], references: [id])

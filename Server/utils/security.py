@@ -24,7 +24,7 @@ def create_AccessToken(data:dict):
 
     expire = datetime.utcnow() + timedelta(minutes=30)
 
-    to_encode.update({"exp": expire})
+    to_encode.update({"exp": expire , "type": "access"})
 
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGO)
 
