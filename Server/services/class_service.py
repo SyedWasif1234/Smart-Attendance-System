@@ -3,7 +3,7 @@ from fastapi import status, UploadFile, HTTPException
 from PIL import Image
 import numpy as np
 import io
-from piplines.FaceRecognition import predict_attendance
+from pipelines.FaceRecognition import predict_attendance
 
 async def save_attendance_records(subject_id: str, detected_students: dict, all_students: list):
     records = []
@@ -17,12 +17,11 @@ async def save_attendance_records(subject_id: str, detected_students: dict, all_
         })
        
     if records:
-        # FIX: Capitalized 'Attendance' to match your Prisma schema
-        await db.Attendance.create_many(data=records)
+        await db.attendance.create_many(data=records)
        
     return records
 
-async def Predict_Attendance(subject_id: str, file: UploadFile, current_user):
+async def predict_class_attendance(subject_id: str, file: UploadFile, current_user):
     try:
         contents = await file.read()
         class_image = Image.open(io.BytesIO(contents)).convert('RGB')
@@ -31,18 +30,23 @@ async def Predict_Attendance(subject_id: str, file: UploadFile, current_user):
         if class_image_np.size == 0:
             raise HTTPException(status_code=400, detail="Invalid image uploaded.")
      
-        # Call the pipeline using the parameters passed from the route
+
         detected_students, all_students, _ = await predict_attendance(
             class_image_np,
             subject_id=subject_id,
             teacher_id=current_user.id
         )
 
+        print("Detected Students :" , detected_students)
+        print("All Students :" , all_students)
+
         saved_records = await save_attendance_records(
             subject_id=subject_id,
             detected_students=detected_students,
             all_students=all_students
         )
+
+        print(f"Records saved: {saved_records}")
 
         return {
             "message": "Attendance calculated and saved successfully",

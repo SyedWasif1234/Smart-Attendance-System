@@ -17,12 +17,12 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    email = payload.get("sub")
-    if email is None:
+    user_id = payload.get("sub")
+    if user_id is None:
         raise HTTPException(status_code=401, detail="Invalid token payload")
 
-    # Fetch user from DB
-    user = await db.user.find_unique(where={"email": email})
+    # Fetch user from DB using ID (token stores user ID in 'sub')
+    user = await db.user.find_unique(where={"id": user_id})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
@@ -38,6 +38,8 @@ async def require_student(current_user = Depends(get_current_user)):
     return current_user
 
 async def require_teacher(current_user = Depends(get_current_user)):
+
+    print(f"Current User: {current_user.username}")
     
     if current_user.role != "TEACHER":
         raise HTTPException(

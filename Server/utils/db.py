@@ -4,9 +4,8 @@ db = Prisma()
 
 async def connect_db():
     await db.connect()
-    print("Databse connected successfully")
+    print("Database connected successfully")
 
 async def disconnect_db():
     await db.disconnect()
-    print("Databse disconnected successfully")
-
+    print("Database disconnected successfully")

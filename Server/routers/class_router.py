@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, Form, Depends, status
-from services.class_service import Predict_Attendance
-from utils.dependencies import require_teacher # Double check your import path
+from services.class_service import predict_class_attendance
+from utils.dependencies import require_teacher
 
 class_router = APIRouter(
     prefix="/class",
@@ -13,4 +13,4 @@ async def take_attendance(
     file: UploadFile = File(...), 
     current_user = Depends(require_teacher)
 ):
-    return await Predict_Attendance(subject_id, file, current_user)
+    return await predict_class_attendance(subject_id, file, current_user)

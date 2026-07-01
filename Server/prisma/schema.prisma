@@ -45,8 +45,8 @@ model User {
 model Subject {
   id        String @id @default(uuid())
   name      String
-  code      String  // here i have to include @unique
-  
+  code      String @unique
+
   teacherId String
   teacher   User   @relation("TeacherSubjects", fields: [teacherId], references: [id])
 
@@ -61,6 +61,8 @@ model Enrollment {
   student   User    @relation(fields: [studentId], references: [id])
   subjectId String
   subject   Subject @relation(fields: [subjectId], references: [id])
+
+  @@unique([studentId, subjectId])
 }
 
 
@@ -74,4 +76,6 @@ model Attendance {
   
   subjectId String
   subject   Subject  @relation(fields: [subjectId], references: [id])
+
+  @@unique([studentId, subjectId, date])
 }

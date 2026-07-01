@@ -13,16 +13,11 @@ ALGO = os.getenv("ALGORITHM")
 def hash_password(password:str)->str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-# Calling the function during user login
-# user_payload = {"sub": user.id, "role": "admin"}
-# access_token = create_access_token(data=user_payload)
-
-
 
 def create_AccessToken(data:dict):
     to_encode = data.copy()
 
-    expire = datetime.utcnow() + timedelta(minutes=30)
+    expire = datetime.now(timezone.utc) + timedelta(minutes=30)
 
     to_encode.update({"exp": expire , "type": "access"})
 
