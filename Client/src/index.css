@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  /* Light Mode (Default) Structural Colors */
+  --bg-base: #F0F4F8; 
+  --bg-surface: #FFFFFF;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --border-subtle: #E2E8F0;
+}
+
+.dark {
+  /* Dark Mode Structural Colors (Matched to your image) */
+  --bg-base: #11141D; /* Deepest background */
+  --bg-surface: #1C2230; /* Elevated card background */
+  --text-main: #FFFFFF;
+  --text-muted: #8B9BB4;
+  --border-subtle: #2D3748;
+}
+
+@theme {
+  /* Map CSS variables to Tailwind classes */
+  --color-surface-base: var(--bg-base);
+  --color-surface-card: var(--bg-surface);
+  --color-content-main: var(--text-main);
+  --color-content-muted: var(--text-muted);
+  --color-border-subtle: var(--border-subtle);
+
+  /* Neon Accents (Constant) */
+  --color-neon-blue: #00A3FF;
+  --color-neon-cyan: #00F0FF;
+  --color-neon-orange: #FFB300;
+}
